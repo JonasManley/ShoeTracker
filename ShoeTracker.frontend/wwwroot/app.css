@@ -59,4 +59,21 @@ h1:focus {
     .max-width-400 {
         max-width: 100%;
     }
-}   
+}
+
+
+/* wwwroot/css/site.css */
+
+@media (max-width: 600px) {
+    .mud-table-container {
+        overflow-x: auto;
+    }
+
+        .mud-table-container table {
+            min-width: 600px;
+        }
+
+    .mud-table {
+        font-size: 14px;
+    }
+}

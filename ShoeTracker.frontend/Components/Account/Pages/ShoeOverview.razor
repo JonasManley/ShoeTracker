@@ -1,0 +1,56 @@
+﻿@page "/shoe-overview"
+@using MudBlazor
+@using ShoeTracker.frontend.Models
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudPaper Class="p-6 mt-6">
+        <MudText Typo="Typo.h4" Align="Align.Center" GutterBottom="true">Aktive Sko</MudText>
+
+        <MudTextField @bind-Value="searchText" Placeholder="Søg efter sko..." Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="mb-4" />
+
+        <MudTable Breakpoint="Breakpoint.Sm" Items="filteredShoes" Hover="true" Filter="new Func<Shoe, bool>(FilterShoes)" SortLabel="Sortér efter" @typeparam="Shoe">
+            <ToolBarContent>
+                <MudTableSortLabel T="Shoe" Label="Navn" />
+                <MudTableSortLabel  T="Shoe" Label="Kilometer" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Navn</MudTh>
+                <MudTh>Kilometer</MudTh>
+                <MudTh>Brugt</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.Name</MudTd>
+                <MudTd>@context.Kilometers</MudTd>
+                <MudTd>
+                    <MudProgressLinear Value="context.UsagePercentage" Color="Color.Primary" />
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string searchText = "";
+    private List<Shoe> shoes = new();
+    private List<Shoe> filteredShoes => shoes.Where(FilterShoes).ToList();
+
+    protected override void OnInitialized()
+    {
+        // Eksempeldata; denne liste bør fyldes dynamisk f.eks. fra en database eller API
+        shoes = new List<Shoe>
+        {
+            new Shoe { Name = "Nike Air Max", Kilometers = 120, MaxKilometers = 500 },
+            new Shoe { Name = "Adidas Ultraboost", Kilometers = 300, MaxKilometers = 600 },
+            new Shoe { Name = "Asics Gel Nimbus", Kilometers = 150, MaxKilometers = 400 }
+        };
+    }
+
+    private bool FilterShoes(Shoe shoe)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+            return true;
+
+        return shoe.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+    }
+}
