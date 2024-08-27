@@ -1,0 +1,40 @@
+﻿@page "/nfcform/{ChipId:int}"
+@inject NavigationManager Navigation
+@using MudBlazor
+
+<PageTitle>Opret Sko</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudPaper Class="p-6 mt-6">
+        <MudText Typo="Typo.h4" Align="Align.Center" GutterBottom="true">Opret Sko</MudText>
+
+        <MudForm @ref="form" OnValidSubmit="HandleValidSubmit">
+            <MudTextField @bind-Value="name" Label="Navn" Variant="Variant.Outlined" Required="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+            <MudTextField @bind-Value="chipId" Label="Chip ID" Variant="Variant.Outlined" Disabled="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Memory" />
+            <MudTextField @bind-Value="kilometers" Label="Kilometer" Variant="Variant.Outlined" Required="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.DirectionsWalk" />
+
+            <MudButton Type="Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Class="mt-4">Opret</MudButton>
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private MudForm form;
+    private string name;
+    private int chipId;
+    private int kilometers;
+
+    [Parameter]
+    public int ChipId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        chipId = ChipId;
+    }
+
+    private void HandleValidSubmit()
+    {
+        // Handle form submission here
+        Navigation.NavigateTo("/");
+    }
+}
