@@ -1,8 +1,10 @@
 ﻿@using MudBlazor
 @inherits LayoutComponentBase
 
+<MudThemeProvider Theme="_customTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<MudForm />
 
 <div class="page">
     <div class="sidebar">
@@ -25,3 +27,31 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+
+    private readonly MudTheme _customTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = Colors.Blue.Default,
+            Secondary = Colors.Green.Accent4,
+            Success = Colors.Green.Default,
+            Error = Colors.Red.Default,
+            Info = Colors.BlueGray.Default,
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Blue.Lighten1,
+            Secondary = Colors.Green.Lighten1,
+            Success = Colors.Green.Lighten2,
+            Error = Colors.Red.Lighten2,
+                Info = Colors.BlueGray.Lighten2,
+        },
+        Shadows = new Shadow(),
+        Typography = new Typography(),
+        LayoutProperties = new LayoutProperties(),
+        ZIndex = new ZIndex(),
+        PseudoCss = new PseudoCss()
+    };
+}

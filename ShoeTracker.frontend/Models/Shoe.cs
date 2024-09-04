@@ -6,5 +6,6 @@
         public int Kilometers { get; set; }
         public int MaxKilometers { get; set; }
         public int UsagePercentage => (int)((double)Kilometers / MaxKilometers * 100);
+        public string NFCIdentifyer { get; set; }
     }
 }
